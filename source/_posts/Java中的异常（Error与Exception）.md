@@ -21,7 +21,7 @@ date: 2021-06-20 14:59:06
 ##### 受检查异常
 Java代码在编译的过程中，如果没有被```try/catch```包围处理的话，就不会被编译通过。除了```RuntimeException```及其子类以外，其他的```Exception```类及其子类都属于受检查异常 。常见的受检查异常有： ```IO 相关的异常```、```ClassNotFoundException``` 、```SQLException```等等。
 ##### 不受检查异常
-Java中即使我们不做处理同样可以编译通过。```RuntimeException```及其子类都统称为非受检查异常，例如：```NullPointerException```、```NumberFormatException```（字符串转换为数字）、```ArrayIndexOutOfBoundsException```（数组越界）、```ClassCastException```（类型转换错误）、```ArithmeticException```（算术错误）等等。
+Java中即使我们不做处理同样可以编译通过。```RuntimeException```git及其子类都统称为非受检查异常，例如：```NullPointerException```、```NumberFormatException```（字符串转换为数字）、```ArrayIndexOutOfBoundsException```（数组越界）、```ClassCastException```（类型转换错误）、```ArithmeticException```（算术错误）等等。
 ### 3.try-catch-finally
 ```try```块：用于包裹可能发生异常的代码，用来捕获异常。后面通常跟着一个或者多个```catch```块，如果没有则必须有个```finally```块。
 ```catch```块：用于异常发生时处理```try```捕获到的异常。

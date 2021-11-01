@@ -307,3 +307,6 @@ public class ExcelUtils {
 
 }
 ```
+## 模板制作
+制作模板时注意表格内数据与表头表尾数据变量命名区别，表格内数据变量前添加【.】用于标识表格数据。
+![](https://raw.githubusercontent.com/zhjAdm/ImageHosting/main/20211101104241.png)
