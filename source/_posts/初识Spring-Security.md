@@ -4,9 +4,8 @@ abbrlink: 34298
 date: 2022-07-02 17:15:00
 tags: [Java,Spring Security]
 categories: Java
-description: Spring Boot集成Spring Security、使用其加密方法对用户密码进行加密和用户登陆功能实现。
+description: Spring Boot集成Spring Security，配置文件详解。
 ---
-# 初识Spring Security
 ## 相关依赖
 ``` xml
         <dependency>
@@ -89,5 +88,28 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         httpSecurity.exceptionHandling()
                 .accessDeniedHandler(restfulAccessDeniedHandler)
                 .authenticationEntryPoint(restAuthenticationEntryPoint);
+    }
+```
+- authenticationManager无法注入问题  
+在项目起动过程时，报错AuthenticationManager无法注入问题。报错信息如下：
+```
+Description:
+
+Field userService in com.zhjAdm.system.user.service.impl.UserDetailsServiceImpl required a bean of type 'org.springframework.security.authentication.AuthenticationManager' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.authentication.AuthenticationManager' in your configuration.
+```
+解决方案，在配制文件中添加：
+```java
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 ```
