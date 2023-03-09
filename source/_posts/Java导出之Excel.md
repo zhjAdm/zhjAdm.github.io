@@ -1,13 +1,10 @@
 ---
 title: Java导出之Excel
-tags:
-
-- Java
-- POI
-  categories: Java
-  abbrlink: 55014
-  date: 2021-10-22 22:33:06
-  description: Java通过POI生成Excel并返回前台下载
+abbrlink: 55014
+date: 2021-10-22 22:33:06
+tags: [Java,POI]
+categories: Java
+description: Java通过POI生成Excel并返回前台下载
 
 ---
 

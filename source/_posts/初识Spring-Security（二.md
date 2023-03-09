@@ -1,16 +1,18 @@
 ---
 title: 初识Spring Security（二)
-tags:
-  - Java
-  - Spring Security
-categories: Java
-description: Spring Boot集成Spring Security，用户密码加密存储实现及用户登陆。
 abbrlink: 48147
 date: 2022-07-02 21:26:10
+tags: [Java,Spring Security]
+categories: Java
+description: Spring Boot集成Spring Security，用户密码加密存储实现及用户登陆。
 ---
+
 对于用户密码出于安全考虑需要加密存储，Spring Security提供了多种加密方式，官方推荐使用BCryptPasswordEncoder加密方式。其实BCryptPasswordEncoder的实现并非为一种加密算法，而是采用SHA-256 +随机盐+密钥对密码进行加密，SHA系列是Hash算法，其过程是不可逆的。用户注册时，使用SHA-256 +随机盐+密钥把用户输入的密码进行Hash处理，将得到的Hash值存入数据库。用户登陆时候采取同样的算法对密码进行Hash处理后于数据库中存储得密码Hash值进行比较。
+
 ## SecurityUtils工具类
+
 Spring框架借助ThreadLocal来保存和传递用户登录信息。我们编写一个工具类方便的获取ThreadLocal中的用户信息名，以及用户密码的加密和比较工作
+
 ```Java
 public class SecurityUtils {
     /**
@@ -92,10 +94,15 @@ public class SecurityUtils {
     }
 }
 ```
+
 ## 用户注册
+
 用户注册对用户填写的密码使用**SecurityUtils.encryptPassword()**进行加密处理即可
-## 用户登陆流程  
+
+## 用户登陆流程
+
 1、登陆后台处理调用**authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password))**，该方法会去调用**UserDetailsServiceImpl.loadUserByUsername()**。  
+
 ```Java
 @Override
 public LoginUser authLogin(UserLoginVo userLoginVo) {
@@ -119,7 +126,9 @@ public LoginUser authLogin(UserLoginVo userLoginVo) {
     return loginUser;
 }
 ```
+
 2、自定义验证类UserDetailsService 实现Security框架UserDetailsService的接口。
+
 ```Java
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -151,9 +160,10 @@ public UserDetails createLoginUser(SysUser user) {
     return new LoginUser(user.getUserId(), user.getOrganId(), user);
 }
 }
-
 ```
+
 3、我们自定义验证类UserDetailsService实现类中，需要实现的**loadUserByUsername**方法回返回一个**UserDetails**接口类，包含非安全相关的信息（如用户昵称，电话号码等），们只存储用户信息，这些信息随后被封装到Authentication对象中。所以我们可以创建其实现类。
+
 ```Java
 public class LoginUser implements UserDetails {
     private static final long serialVersionUID = 1L;
@@ -265,32 +275,32 @@ public class LoginUser implements UserDetails {
         return user.getUsername();
     }
     /**
-	 * 用户是否过期，没有过期就返回true
-	 */
+     * 用户是否过期，没有过期就返回true
+     */
     @Override
     @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
     /**
-	 * 用户是否被锁定，锁定返回true。
-	 */
+     * 用户是否被锁定，锁定返回true。
+     */
     @Override
     @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
-	/**
-	 * 用户凭证是否可用，可用返回true
-	 */
+    /**
+     * 用户凭证是否可用，可用返回true
+     */
     @Override
     @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
-	/**
-	 * 用户是否启用了，启用了返回true
-	 */
+    /**
+     * 用户是否启用了，启用了返回true
+     */
     @Override
     @JsonIgnore
     public boolean isEnabled() {
@@ -299,25 +309,28 @@ public class LoginUser implements UserDetails {
 }
 ```
 
+## 常见错误
 
-## 常见错误  
 - There is no PasswordEncoder mapped for the id “null“ 问题的解决方法  
-    - 错误  
-        登陆报错**There is no PasswordEncoder mapped for the id “null“**
-    - 原因  
-        Spring Security5.x 对所配置的密码必须带上加密方式，如果没有带，就会解析不出来，所以抛错。
-    - 解决 
-        储存密码是添加加密方式， 格式为{xxx}密码。  
-        |   加密方式    |  原来security 4的密码格式  |  现在security 5的密码格式  |  
-        |   ----    |    ----   |   ----    |
-        |  bcrypt   |	password    |	{bcrypt}password    |
-        |  ldap     |	password    |	{ldap}password      |
-        |  MD4      |	password    |	{MD4}password       |
-        |  MD5      |	password    |	{MD5}password       |
-        |  noop     |	password    |	{noop}password      |
-        |  pbkdf2   |	password    |	{pbkdf2}password    |
-        |  scrypt   |	password    |	{scrypt}password    |
-        |  SHA-1    |	password    |	{SHA-1}password     |
-        |  SHA-256  |	password    |	{SHA-256}password   |
-        |  sha256   |	password    |	{sha256}password    |
-
+  
+  - 错误  
+      登陆报错**There is no PasswordEncoder mapped for the id “null“**
+  
+  - 原因  
+      Spring Security5.x 对所配置的密码必须带上加密方式，如果没有带，就会解析不出来，所以抛错。
+  
+  - 解决 
+      储存密码是添加加密方式， 格式为{xxx}密码。  
+    
+    | 加密方式    | 原来security 4的密码格式 | 现在security 5的密码格式 |
+    | ------- | ----------------- | ----------------- |
+    | bcrypt  | password          | {bcrypt}password  |
+    | ldap    | password          | {ldap}password    |
+    | MD4     | password          | {MD4}password     |
+    | MD5     | password          | {MD5}password     |
+    | noop    | password          | {noop}password    |
+    | pbkdf2  | password          | {pbkdf2}password  |
+    | scrypt  | password          | {scrypt}password  |
+    | SHA-1   | password          | {SHA-1}password   |
+    | SHA-256 | password          | {SHA-256}password |
+    | sha256  | password          | {sha256}password  |

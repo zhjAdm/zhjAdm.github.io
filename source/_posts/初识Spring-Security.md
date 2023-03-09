@@ -5,19 +5,25 @@ date: 2022-07-02 17:15:00
 tags: [Java,Spring Security]
 categories: Java
 description: Spring Boot集成Spring Security，配置文件详解。
+
 ---
+
 ## 相关依赖
-``` xml
+
+```xml
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 ```
+
 ## Spring Securit配制文件SecurityConfig
+
 - 处理访问无权限是返回结果  
-```Java
-@Component
-public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
+  
+  ```Java
+  @Component
+  public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
@@ -29,12 +35,14 @@ public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
         response.getWriter().println(mapper.writeValueAsString(Result.forbidden("所请求资源，没有权限访问！")));
         response.getWriter().flush();
     }
-}
-```
+  }
+  ```
+
 - 处理Token失效或未登录是返回结果  
-```Java
-@Component
-public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+  
+  ```Java
+  @Component
+  public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setCharacterEncoding("UTF-8");
@@ -44,12 +52,14 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.getWriter().println(mapper.writeValueAsString(Result.unauthorized("未登录或者token失效！")));
         response.getWriter().flush();
     }
-}
-```
+  }
+  ```
+
 - 配制文件主要内容  
     SecurityConfig接管Spring Security的配置，必须要继承WebSecurityConfigurerAdapter重写configure方法。并且通常添加@EnableWebSecurity注解开启方法过滤注解
-```Java
-@Override
+  
+  ```Java
+  @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf().disable() //关闭CSRF
@@ -89,21 +99,24 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
                 .accessDeniedHandler(restfulAccessDeniedHandler)
                 .authenticationEntryPoint(restAuthenticationEntryPoint);
     }
-```
+  ```
+
 - authenticationManager无法注入问题  
-在项目起动过程时，报错AuthenticationManager无法注入问题。报错信息如下：
-```
-Description:
+  在项目起动过程时，报错AuthenticationManager无法注入问题。报错信息如下：
+  
+  ```
+  Description:
+  ```
 
 Field userService in com.zhjAdm.system.user.service.impl.UserDetailsServiceImpl required a bean of type 'org.springframework.security.authentication.AuthenticationManager' that could not be found.
 
 The injection point has the following annotations:
-	- @org.springframework.beans.factory.annotation.Autowired(required=true)
-
+    - @org.springframework.beans.factory.annotation.Autowired(required=true)
 
 Action:
 
 Consider defining a bean of type 'org.springframework.security.authentication.AuthenticationManager' in your configuration.
+
 ```
 解决方案，在配制文件中添加：
 ```java
