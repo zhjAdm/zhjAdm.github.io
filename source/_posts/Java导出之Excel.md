@@ -1,41 +1,53 @@
 ---
 title: Java导出之Excel
 tags:
-  - Java
-  - POI
-categories: Java
-abbrlink: 55014
-date: 2021-10-22 22:33:06
-description: Java通过POI生成Excel并返回前台下载
+
+- Java
+- POI
+  categories: Java
+  abbrlink: 55014
+  date: 2021-10-22 22:33:06
+  description: Java通过POI生成Excel并返回前台下载
+
 ---
+
 # Java通过模板导出Excel
+
 ## POI
+
 Apache POI是Apache软件基金会的开放源码库，POI提供API给Java程序对Microsoft Office格式文件读和写的功能。
+
 ## HSSF和XSSF
+
 针对不同版本的Excel，在POI中提供了HSSF和XSSF不同的包。
 HSSF  － 提供读写Microsoft Excel XLS格式档案的功能。
 XSSF  － 提供读写Microsoft Excel OOXML XLSX格式档案的功能。
+
 ## 相关依赖
-``` 
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>4.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>4.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>4.1.2</version>
-		</dependency>
+
 ```
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+```
+
 ## 工具类
+
 writeExcel()f方法根据模板生成Excel，writeToResponse()方法将生成的Excel写入response中返回前端下载。
-``` java
+
+```java
 public class ExcelUtils {
     private static final String REG = "\\{([a-zA-Z_1-9]+)\\}";// 匹配"{exp}"
     private static final String REG_LIST = "\\{\\.([a-zA-Z_1-9]+)\\}";// 匹配"{.exp}"
@@ -307,6 +319,8 @@ public class ExcelUtils {
 
 }
 ```
+
 ## 模板制作
+
 制作模板时注意表格内数据与表头表尾数据变量命名区别，表格内数据变量前添加【.】用于标识表格数据。
 ![](https://raw.githubusercontent.com/zhjAdm/ImageHosting/main/20211101104241.png)
