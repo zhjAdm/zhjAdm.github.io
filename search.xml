@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Docker使用</title>
+    <url>/archives/5123.html</url>
+    <content><![CDATA[<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><h4 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h4><p>Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。</p>
+<h4 id="关键指令"><a href="#关键指令" class="headerlink" title="关键指令"></a>关键指令</h4><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FROM</td>
+<td>指定基础镜像</td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>在构建过程中在镜像中执行命令。</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>指定容器创建时的默认命令。（可以被覆盖）</td>
+</tr>
+<tr>
+<td>ENTRYPOINT</td>
+<td>设置容器创建时的主要命令。（不可被覆盖）</td>
+</tr>
+<tr>
+<td>EXPOSE</td>
+<td>声明容器运行时监听的特定网络端口。</td>
+</tr>
+<tr>
+<td>ENV</td>
+<td>在容器内部设置环境变量。</td>
+</tr>
+<tr>
+<td>ADD</td>
+<td>将文件、目录或远程URL复制到镜像中。</td>
+</tr>
+<tr>
+<td>COPY</td>
+<td>将文件或目录复制到镜像中。</td>
+</tr>
+<tr>
+<td>VOLUME</td>
+<td>为容器创建挂载点或声明卷。</td>
+</tr>
+<tr>
+<td>WORKDIR</td>
+<td>设置后续指令的工作目录。</td>
+</tr>
+</tbody></table>
+<h4 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker build -t runoob/ubuntu:v1 . </span><br></pre></td></tr></table></figure>
+
+<p>-t : 镜像标签</p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java中的异常（Error与Exception）</title>
+    <url>/archives/45192.html</url>
+    <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>程序在运行时，发生不被期望的事件，它影响程序的正常执行，这被称为异常。Java中拥有自己的异常处理机制，当异常发生时能够按照代码预设的处理逻辑，来减少异常对后续程序运行影响，尽可能保证程序正常的运行。这些异常有的是因为用户错误引起，有的是程序错误引起的，还有其它一些是因为物理错误引起的。</p>
+<h1 id="Java中的异常体系"><a href="#Java中的异常体系" class="headerlink" title="Java中的异常体系"></a>Java中的异常体系</h1><p>为万物皆对象的Java中，异常同样也是作为一个对象处理。Throwable 是 Java 语言中所有<code>错误（Error）</code>和<code>异常（Exception）</code>的超类。在 Java 中只有 Throwable 类型的实例才可以被<code>抛出（throw）</code>或者<code>捕获（catch）</code>，它是异常处理机制的基本组成类型。<br><img src="https://raw.githubusercontent.com/zhjAdm/ImageHosting/main/20210620155311.png"></p>
+<h3 id="1-Error"><a href="#1-Error" class="headerlink" title="1.Error"></a>1.Error</h3><p>无法被程序所处理的错误。例如，Java 虚拟机运行错误（Virtual MachineError）、虚拟机内存不够错误(OutOfMemoryError)、类定义错误（NoClassDefFoundError）等 。这些异常发生时，Java 虚拟机（JVM）一般会选择线程终止。</p>
+<h3 id="2-Exception"><a href="#2-Exception" class="headerlink" title="2.Exception"></a>2.Exception</h3><p>程序本身可以处理的异常，可以通过<code>catch</code>捕获。 <code>Exception</code>又分为<code>受检查异常</code>(必须处理) 和<code>不受检查异常</code>(可以不处理)。</p>
+<h5 id="受检查异常"><a href="#受检查异常" class="headerlink" title="受检查异常"></a>受检查异常</h5><p>Java代码在编译的过程中，如果没有被<code>try/catch</code>包围处理的话，就不会被编译通过。除了<code>RuntimeException</code>及其子类以外，其他的<code>Exception</code>类及其子类都属于受检查异常 。常见的受检查异常有： <code>IO 相关的异常</code>、<code>ClassNotFoundException</code> 、<code>SQLException</code>等等。</p>
+<h5 id="不受检查异常"><a href="#不受检查异常" class="headerlink" title="不受检查异常"></a>不受检查异常</h5><p>Java中即使我们不做处理同样可以编译通过。<code>RuntimeException</code>git及其子类都统称为非受检查异常，例如：<code>NullPointerException</code>、<code>NumberFormatException</code>（字符串转换为数字）、<code>ArrayIndexOutOfBoundsException</code>（数组越界）、<code>ClassCastException</code>（类型转换错误）、<code>ArithmeticException</code>（算术错误）等等。</p>
+<h3 id="3-try-catch-finally"><a href="#3-try-catch-finally" class="headerlink" title="3.try-catch-finally"></a>3.try-catch-finally</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>```</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>异常</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java导出之Excel</title>
+    <url>/archives/55014.html</url>
+    <content><![CDATA[<h1 id="Java通过模板导出Excel"><a href="#Java通过模板导出Excel" class="headerlink" title="Java通过模板导出Excel"></a>Java通过模板导出Excel</h1><h2 id="POI"><a href="#POI" class="headerlink" title="POI"></a>POI</h2><p>Apache POI是Apache软件基金会的开放源码库，POI提供API给Java程序对Microsoft Office格式文件读和写的功能。</p>
+<h2 id="HSSF和XSSF"><a href="#HSSF和XSSF" class="headerlink" title="HSSF和XSSF"></a>HSSF和XSSF</h2><p>针对不同版本的Excel，在POI中提供了HSSF和XSSF不同的包。<br>HSSF  － 提供读写Microsoft Excel XLS格式档案的功能。<br>XSSF  － 提供读写Microsoft Excel OOXML XLSX格式档案的功能。</p>
+<h2 id="相关依赖"><a href="#相关依赖" class="headerlink" title="相关依赖"></a>相关依赖</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml-schemas<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h2><p>writeExcel()f方法根据模板生成Excel，writeToResponse()方法将生成的Excel写入response中返回前端下载。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExcelUtils</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String REG = <span class="string">&quot;\\&#123;([a-zA-Z_1-9]+)\\&#125;&quot;</span>;<span class="comment">// 匹配&quot;&#123;exp&#125;&quot;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String REG_LIST = <span class="string">&quot;\\&#123;\\.([a-zA-Z_1-9]+)\\&#125;&quot;</span>;<span class="comment">// 匹配&quot;&#123;.exp&#125;&quot;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Pattern PATTERN = Pattern.compile(REG);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Pattern PATTERN_LIST = Pattern.compile(REG_LIST);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ExcelUtils</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据模板生成Excel文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> templateFilePath 模版文件路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> context      表头或表尾数据集合</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dataList     列表</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] writeExcel(String templateFilePath, Map&lt;String, Object&gt; context,</span><br><span class="line">                                    List&lt;?&gt; dataList) &#123;</span><br><span class="line">       <span class="comment">// File templateFile = null;</span></span><br><span class="line">        ClassPathResource classPathResource = <span class="keyword">new</span> ClassPathResource(templateFilePath);</span><br><span class="line">        InputStream inputStream = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            inputStream = classPathResource.getInputStream();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;获取模板失败!&quot;</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> (HSSFWorkbook workbook = <span class="keyword">new</span> HSSFWorkbook(inputStream)) &#123;</span><br><span class="line">            Sheet sheet = workbook.getSheetAt(<span class="number">0</span>);<span class="comment">// 获取配置文件sheet 页</span></span><br><span class="line">            <span class="keyword">int</span> listStartRowNum = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = sheet.getFirstRowNum(); i &lt;= sheet.getLastRowNum(); i++) &#123;</span><br><span class="line">                Row row = sheet.getRow(i);</span><br><span class="line">                <span class="keyword">if</span> (row != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; row.getLastCellNum(); j++) &#123;</span><br><span class="line">                        Cell cell = row.getCell(j);</span><br><span class="line">                        <span class="keyword">if</span> (cell != <span class="keyword">null</span> &amp;&amp; cell.getCellType() == CellType.STRING) &#123;</span><br><span class="line">                            String cellValue = cell.getStringCellValue();</span><br><span class="line">                            <span class="comment">// 获取到列表数据所在行</span></span><br><span class="line">                            <span class="keyword">if</span> (listStartRowNum == -<span class="number">1</span> &amp;&amp; cellValue.matches(REG_LIST)) &#123;</span><br><span class="line">                                listStartRowNum = i;</span><br><span class="line">                            &#125;</span><br><span class="line"></span><br><span class="line">                            Object newValue = cellValue;</span><br><span class="line">                            Matcher matcher = PATTERN.matcher(cellValue);</span><br><span class="line">                            <span class="keyword">while</span> (matcher.find()) &#123;</span><br><span class="line">                                String replaceExp = matcher.group();<span class="comment">// 匹配到的表达式</span></span><br><span class="line">                                String key = matcher.group(<span class="number">1</span>);<span class="comment">// 获取key</span></span><br><span class="line">                                Object replaceValue = context.get(key);</span><br><span class="line">                                <span class="keyword">if</span> (replaceValue == <span class="keyword">null</span>) &#123;</span><br><span class="line">                                    replaceValue = <span class="string">&quot;&quot;</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                                <span class="keyword">if</span> (replaceExp.equals(cellValue)) &#123;<span class="comment">// 单元格是一个表达式</span></span><br><span class="line">                                    newValue = replaceValue;</span><br><span class="line">                                &#125; <span class="keyword">else</span> &#123;<span class="comment">// 以字符串替换</span></span><br><span class="line">                                    newValue = ((String) newValue).replace(replaceExp, replaceValue.toString());</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                            setCellValue(cell, newValue);</span><br><span class="line"></span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (-<span class="number">1</span> != listStartRowNum) &#123;<span class="comment">// 如果不为 -1 说明有需要循环的列表表达式</span></span><br><span class="line">                Row listStartRow = sheet.getRow(listStartRowNum);</span><br><span class="line">                <span class="keyword">if</span> (CollectionUtils.isEmpty(dataList)) &#123;<span class="comment">// 列表数据为空，清空列表表达式行</span></span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; listStartRow.getLastCellNum(); i++) &#123;</span><br><span class="line">                        Cell cell = listStartRow.getCell(i);</span><br><span class="line">                        <span class="keyword">if</span> (cell != <span class="keyword">null</span>) &#123;</span><br><span class="line">                            cell.setCellValue(<span class="string">&quot;&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">int</span> lastCellNum = listStartRow.getLastCellNum();</span><br><span class="line">                    <span class="keyword">if</span> (listStartRowNum + <span class="number">1</span> &lt;= sheet.getLastRowNum()) &#123;</span><br><span class="line">                        sheet.shiftRows(listStartRowNum + <span class="number">1</span>, sheet.getLastRowNum(), dataList.size(), <span class="keyword">true</span>, <span class="keyword">false</span>);<span class="comment">// 列表数据行后面行下移，留出数据填充区域</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dataList.size(); i++) &#123;<span class="comment">// 循环列表数据 生成行</span></span><br><span class="line">                        JSONObject jsonObj  = (JSONObject) JSON.toJSON(dataList.get(i));</span><br><span class="line">                        <span class="comment">//Map&lt;String, Object&gt; map = dataList.get(i);// 一行数据</span></span><br><span class="line">                        <span class="keyword">int</span> newRowNum = listStartRowNum + i + <span class="number">1</span>;<span class="comment">// 保留表达式行</span></span><br><span class="line">                        Row newRow = sheet.createRow(newRowNum);<span class="comment">// 创建新行</span></span><br><span class="line">                        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; lastCellNum; j++) &#123;<span class="comment">// 循环遍历单元格</span></span><br><span class="line">                            Cell cell = listStartRow.getCell(j);<span class="comment">// 列表数据行</span></span><br><span class="line"></span><br><span class="line">                            <span class="comment">// 填充数据</span></span><br><span class="line">                            <span class="keyword">if</span> (cell != <span class="keyword">null</span>) &#123;</span><br><span class="line">                                Cell newCell = newRow.createCell(j);</span><br><span class="line">                                newCell.setCellStyle(cell.getCellStyle());<span class="comment">// 设置单元格格式</span></span><br><span class="line"></span><br><span class="line">                                <span class="keyword">if</span> (cell.getCellType() == CellType.STRING</span><br><span class="line">                                        &amp;&amp; cell.getStringCellValue().matches(REG_LIST)) &#123;<span class="comment">// 单元格是一个表达式</span></span><br><span class="line">                                    String cellExp = cell.getStringCellValue();</span><br><span class="line">                                    Matcher matcher = PATTERN_LIST.matcher(cellExp);</span><br><span class="line">                                    matcher.find();</span><br><span class="line">                                    String key = matcher.group(<span class="number">1</span>);<span class="comment">// 获取key</span></span><br><span class="line">                                    Object newValue = jsonObj.get(key);</span><br><span class="line">                                    <span class="keyword">if</span> (newValue == <span class="keyword">null</span>) &#123;</span><br><span class="line">                                        newValue = <span class="string">&quot;&quot;</span>;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                    setCellValue(newCell, newValue);</span><br><span class="line">                                &#125; <span class="keyword">else</span> &#123;<span class="comment">// 不是表达式复制单元格数据</span></span><br><span class="line">                                    CellType cellType = cell.getCellType();</span><br><span class="line">                                    <span class="keyword">if</span> (cellType == CellType.NUMERIC) &#123;</span><br><span class="line">                                        newCell.setCellValue(cell.getNumericCellValue());</span><br><span class="line">                                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cellType == CellType.BOOLEAN) &#123;</span><br><span class="line">                                        newCell.setCellValue(cell.getBooleanCellValue());</span><br><span class="line">                                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cellType == CellType.STRING) &#123;</span><br><span class="line">                                        newCell.setCellValue(cell.getStringCellValue());</span><br><span class="line">                                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cellType == CellType.FORMULA) &#123;</span><br><span class="line">                                        <span class="comment">// 处理公式，待实现</span></span><br><span class="line">                                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                        newCell.setCellValue(cell.getStringCellValue());</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    sheet.removeRow(listStartRow);<span class="comment">// 删除list表达式行</span></span><br><span class="line">                    sheet.shiftRows(listStartRowNum + <span class="number">1</span>, sheet.getLastRowNum(), -<span class="number">1</span>, <span class="keyword">true</span>, <span class="keyword">false</span>);<span class="comment">// 数据区域上移一行，覆盖表达式行</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 合并单元格处理</span></span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lastCellNum; i++) &#123;</span><br><span class="line">                        CellRangeAddress mergedRangeAddress = getMergedRangeAddress(sheet, listStartRowNum, i);</span><br><span class="line">                        <span class="keyword">if</span> (mergedRangeAddress != <span class="keyword">null</span>) &#123;<span class="comment">// 合并的单元格</span></span><br><span class="line">                            i = mergedRangeAddress.getLastColumn();</span><br><span class="line">                            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; dataList.size(); j++) &#123;</span><br><span class="line">                                <span class="keyword">int</span> newRowNum = listStartRowNum + j;</span><br><span class="line">                                sheet.addMergedRegionUnsafe(<span class="keyword">new</span> CellRangeAddress(newRowNum, newRowNum,</span><br><span class="line">                                        mergedRangeAddress.getFirstColumn(), mergedRangeAddress.getLastColumn()));</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 公式生效</span></span><br><span class="line">            sheet.setForceFormulaRecalculation(<span class="keyword">true</span>);</span><br><span class="line">            sheet.getPrintSetup().setPaperSize(PrintSetup.A4_PAPERSIZE);</span><br><span class="line">            sheet.getPrintSetup().setLandscape(<span class="keyword">true</span>);</span><br><span class="line">            <span class="comment">// FitHeight=1, 将所有行都缩放显示在一页上（设置1表示一页显示完，如果设置2表示分2页显示完）</span></span><br><span class="line">            <span class="comment">// FitWidth=1, 将所有列都缩放显示在一页上</span></span><br><span class="line">            <span class="comment">// 两个都等于1时，如果行数太多则会挤压列，一般来说只设置一个FitWidth=1，让行数自动换页</span></span><br><span class="line">            <span class="comment">// 要使这两个参数有效，则需要设置FitToPage=true</span></span><br><span class="line">            sheet.setFitToPage(<span class="keyword">true</span>);</span><br><span class="line">            sheet.getPrintSetup().setFitWidth((<span class="keyword">short</span>) <span class="number">1</span>);</span><br><span class="line"><span class="comment">//          sheet.getPrintSetup().setFitHeight((short)1);</span></span><br><span class="line">            <span class="comment">// 是否显示自动换页符</span></span><br><span class="line">            sheet.setAutobreaks(<span class="keyword">true</span>);</span><br><span class="line">            ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">            workbook.write(out);</span><br><span class="line">            <span class="keyword">return</span> out.toByteArray();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ExcelException(<span class="string">&quot;生成excel失败!&quot;</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setCellValue</span><span class="params">(Cell cell, Object value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (value <span class="keyword">instanceof</span> Number) &#123;<span class="comment">// 如果是数字类型的设置为数值</span></span><br><span class="line">            cell.setCellValue(Double.parseDouble(value.toString()));</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value <span class="keyword">instanceof</span> Date) &#123;<span class="comment">// 如果为时间类型的设置为时间</span></span><br><span class="line">            cell.setCellValue((Date) value);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">            cell.setCellValue((String) value);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value <span class="keyword">instanceof</span> Boolean) &#123;</span><br><span class="line">            cell.setCellValue((Boolean) value);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cell.setCellValue(value.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取指定行/列的合并单元格区域</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sheet</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> row</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> column</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> CellRangeAddress 不是合并单元格返回null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> CellRangeAddress <span class="title">getMergedRangeAddress</span><span class="params">(Sheet sheet, <span class="keyword">int</span> row, <span class="keyword">int</span> column)</span> </span>&#123;</span><br><span class="line">        List&lt;CellRangeAddress&gt; mergedRegions = sheet.getMergedRegions();</span><br><span class="line">        <span class="keyword">for</span> (CellRangeAddress cellAddresses : mergedRegions) &#123;</span><br><span class="line">            <span class="keyword">if</span> (row &gt;= cellAddresses.getFirstRow() &amp;&amp; row &lt;= cellAddresses.getLastRow()</span><br><span class="line">                    &amp;&amp; column &gt;= cellAddresses.getFirstColumn() &amp;&amp; column &lt;= cellAddresses.getLastColumn()) &#123;</span><br><span class="line">                <span class="keyword">return</span> cellAddresses;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ExcelException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">2772261598232964002L</span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ExcelException</span><span class="params">(String msg, Throwable e)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(msg, e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ExcelException</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Description: 1、通过浏览器以流的形式输出,为了处理中文表名问题.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> bytes 文件对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fileName 文件名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeToResponse</span><span class="params">(<span class="keyword">byte</span>[] bytes, HttpServletRequest request, HttpServletResponse response, String fileName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String userAgent = request.getHeader(<span class="string">&quot;User-Agent&quot;</span>);</span><br><span class="line">            <span class="comment">// 解决中文乱码问题</span></span><br><span class="line">            String fileName1 =  fileName + <span class="string">&quot;.xls&quot;</span>;</span><br><span class="line">            String newFilename = URLEncoder.encode(fileName1, <span class="string">&quot;UTF8&quot;</span>);</span><br><span class="line">            <span class="comment">// 如果没有userAgent，则默认使用IE的方式进行编码，因为毕竟IE还是占多数的</span></span><br><span class="line">            String rtn = <span class="string">&quot;filename=\&quot;&quot;</span> + newFilename + <span class="string">&quot;\&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">if</span> (userAgent != <span class="keyword">null</span>) &#123;</span><br><span class="line">                userAgent = userAgent.toLowerCase();</span><br><span class="line">                <span class="comment">// IE浏览器，只能采用URLEncoder编码</span></span><br><span class="line">                <span class="keyword">if</span> (userAgent.indexOf(<span class="string">&quot;IE&quot;</span>) != -<span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    rtn = <span class="string">&quot;filename=\&quot;&quot;</span> + newFilename + <span class="string">&quot;\&quot;&quot;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// Opera浏览器只能采用filename*</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (userAgent.indexOf(<span class="string">&quot;OPERA&quot;</span>) != -<span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    rtn = <span class="string">&quot;filename*=UTF-8&#x27;&#x27;&quot;</span> + newFilename;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// Safari浏览器，只能采用ISO编码的中文输出</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (userAgent.indexOf(<span class="string">&quot;SAFARI&quot;</span>) != -<span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    rtn = <span class="string">&quot;filename=\&quot;&quot;</span> + <span class="keyword">new</span> String(fileName1.getBytes(<span class="string">&quot;UTF-8&quot;</span>), <span class="string">&quot;ISO8859-1&quot;</span>)</span><br><span class="line">                            + <span class="string">&quot;\&quot;&quot;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// FireFox浏览器，可以使用MimeUtility或filename*或ISO编码的中文输出</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (userAgent.indexOf(<span class="string">&quot;FIREFOX&quot;</span>) != -<span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    rtn = <span class="string">&quot;filename*=UTF-8&#x27;&#x27;&quot;</span> + newFilename;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            String headStr = <span class="string">&quot;attachment;  &quot;</span> + rtn;</span><br><span class="line">            response.setContentType(<span class="string">&quot;multipart/form-data&quot;</span>);</span><br><span class="line">            response.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">            response.setHeader(<span class="string">&quot;Content-Disposition&quot;</span>, headStr);</span><br><span class="line">            <span class="comment">// 响应到客户端</span></span><br><span class="line">            OutputStream outputStream = response.getOutputStream();</span><br><span class="line">            outputStream.write(bytes);</span><br><span class="line">            outputStream.flush();</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line"></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="模板制作"><a href="#模板制作" class="headerlink" title="模板制作"></a>模板制作</h2><p>制作模板时注意表格内数据与表头表尾数据变量命名区别，表格内数据变量前添加【.】用于标识表格数据。<br><img src="https://raw.githubusercontent.com/zhjAdm/ImageHosting/main/20211101104241.png"></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>POI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linx命令</title>
+    <url>/archives/57987.html</url>
+    <content><![CDATA[<h1 id="Linux命令"><a href="#Linux命令" class="headerlink" title="Linux命令"></a>Linux命令</h1><h4 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nohup 执行脚本 &gt; 输出日志.log 2&gt;&amp;1 &amp; </span><br></pre></td></tr></table></figure>
+
+<h4 id="添加可执行权限"><a href="#添加可执行权限" class="headerlink" title="添加可执行权限"></a>添加可执行权限</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod +x 文件</span><br></pre></td></tr></table></figure>
+
+<h4 id="查找指定进程"><a href="#查找指定进程" class="headerlink" title="查找指定进程"></a>查找指定进程</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -aux | grep &quot;进程名&quot; </span><br></pre></td></tr></table></figure>
+
+<h4 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar czvf 压缩文件名.tar.gz 被压缩文件夹</span><br></pre></td></tr></table></figure>
+
+<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar zvxf 压缩文件名.tar.gz -C 目标文件夹</span><br></pre></td></tr></table></figure>
+
+<h4 id="从服务器上下载文件"><a href="#从服务器上下载文件" class="headerlink" title="从服务器上下载文件"></a>从服务器上下载文件</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">scp 用户名@服务器地址:要下载的文件路径 保存文件的文件夹路径</span><br></pre></td></tr></table></figure>
+
+<h4 id="上传本地文件到服务器"><a href="#上传本地文件到服务器" class="headerlink" title="上传本地文件到服务器"></a>上传本地文件到服务器</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">scp 要上传的文件路径 用户名@服务器地址:服务器保存路径 </span><br></pre></td></tr></table></figure>
+
+<h4 id="从服务器下载整个目录"><a href="#从服务器下载整个目录" class="headerlink" title="从服务器下载整个目录"></a>从服务器下载整个目录</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">scp -r 用户名@服务器地址:要下载的服务器目录 保存下载的目录</span><br></pre></td></tr></table></figure>
+
+<h4 id="上传目录到服务器"><a href="#上传目录到服务器" class="headerlink" title="上传目录到服务器"></a>上传目录到服务器</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">scp  -r 要上传的目录 用户名@服务器地址:服务器的保存目录</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring 的控制反转(IoC)和面向切面(AOP)</title>
+    <url>/archives/21589.html</url>
+    <content><![CDATA[<h1 id="控制反转（IoC）"><a href="#控制反转（IoC）" class="headerlink" title="控制反转（IoC）"></a>控制反转（IoC）</h1><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><blockquote>
+<p>控制反转本身是一种设计思想，非技术。是将对象交给容器控制，非传统通过在对象内部直接控制。传统的开发方式，我们通过new的方式创建一个对象，程序主动去创建并建立依赖。控制反转是将对象的创建交给容器，并让容器管理对象的整个生命周期，容器实现依赖的注入。相对与传统开发的主动创建对象建立依赖关系，通过容器创建管理对象，注入依赖所以叫作控制反转。</p>
+</blockquote>
+<h3 id="有什么作用"><a href="#有什么作用" class="headerlink" title="有什么作用"></a>有什么作用</h3><blockquote>
+<p>因为有原来在类内部自己创建对象，导致类与类之间存在很强的耦合关系。现在将控制权交给容器后，所以类与类之间变成了松耦合，有一利于代码功能的复用。</p>
+</blockquote>
+<h3 id="Ioc-和-DI"><a href="#Ioc-和-DI" class="headerlink" title="Ioc 和 DI"></a>Ioc 和 DI</h3><blockquote>
+<p>IoC是设计思想，DI（依赖注入）是实现方式</p>
+</blockquote>
+<h3 id="IoC-配置方式"><a href="#IoC-配置方式" class="headerlink" title="IoC 配置方式"></a>IoC 配置方式</h3><ul>
+<li><p>xml 配置方式</p>
+<p>将bean对象的信息配置在xml文件中，Spring 加载配置文件根据配置的信息创建bean。但是配置方式繁琐，不利于维护。在 Spring boot 中该方式已经被抛弃。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--suppress ALL --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="tag"><span class="string">		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">	&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用无参构造器来创建对象。id属性：要求唯一 。class属性：要写类的完整的名称。 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;a1&quot;</span> <span class="attr">class</span>=<span class="string">&quot;first.Apple&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;date1&quot;</span> <span class="attr">class</span>=<span class="string">&quot;java.util.Date&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用静态工厂方法来创建对象。 factory-method属性：用来指定静态方法名。注：Spring容器会调用该类的静态方法来创建一个对象。 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;cal1&quot;</span> <span class="attr">class</span>=<span class="string">&quot;java.util.Calendar&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;getInstance&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用实例工厂方法来创建对象： factory-bean属性：指定要调用的bean的id, factory-method属性：指定要调用的实例方法。 注：Spring容器会调用该bean的实例方法来创建对象。 在Spring框架里面，所谓的bean指的是由Spring容器管理的对象。--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;date2&quot;</span> <span class="attr">factory-bean</span>=<span class="string">&quot;cal1&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;getTime&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Java 配置方式</p>
+<p>通过Java的配置类实现bean的创建，本质的xml的方式相同不过是将配置信息转移到了Java配置类中。同样存在配置繁琐，存在大量配置的话不利于威化，可读变差。但是第三方资源还是需要通过这种或者xml的方式。</p>
+<ol>
+<li>创建一个配置类 ，添加 <strong>@Configuration</strong> 注解声明为配置类。</li>
+<li>方法上添加 <strong>@Bean</strong> 注解。方法内创建一个对象并返回。返回的该对象就会被IoC容器所管理。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeansConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> user dao</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean(&quot;userDao&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDaoImpl <span class="title">userDao</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> UserDaoImpl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> user service</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean(&quot;userService&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserServiceImpl <span class="title">userService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        UserServiceImpl userService = <span class="keyword">new</span> UserServiceImpl();</span><br><span class="line">        userService.setUserDao(userDao());</span><br><span class="line">        <span class="keyword">return</span> userService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>注解方式</p>
+<p>Spring 会扫描 @Component，@Controller，@Service，@Repository这四个注解的类，然后帮我们创建并管理，前提是需要先配置Spring的注解扫描器。使用起来方便快捷、便于维护，但第三方资源无法添加。</p>
+</li>
+</ul>
+<h3 id="依赖注入方式"><a href="#依赖注入方式" class="headerlink" title="依赖注入方式"></a>依赖注入方式</h3><blockquote>
+<p>常用的注入方式主要有三种：构造方法注入（Construct注入），setter注入，基于注解的注入（接口注入）</p>
+</blockquote>
+<h1 id="面向切面编程-AOP"><a href="#面向切面编程-AOP" class="headerlink" title="面向切面编程 (AOP)"></a>面向切面编程 (AOP)</h1><h3 id="是什么-1"><a href="#是什么-1" class="headerlink" title="是什么"></a>是什么</h3><blockquote>
+<p>和 IoC 同样是一种设计思想。理解为将不同业务模块相同的代进行抽离封装，从而降低模块之间的耦合度。Spring 中通过代理实现 AOP</p>
+</blockquote>
+<h3 id="有什么作用-1"><a href="#有什么作用-1" class="headerlink" title="有什么作用"></a>有什么作用</h3><blockquote>
+<p>可以通过AOP 实现模块之间的解耦，例如：系统中常见的日志记录功能，可以将各个模块中相同的代码抽取成独立的模块，利用   AOP 实现解耦。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初识Spring Security（一）</title>
+    <url>/archives/34298.html</url>
+    <content><![CDATA[<h2 id="相关依赖"><a href="#相关依赖" class="headerlink" title="相关依赖"></a>相关依赖</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-Securit配制文件SecurityConfig"><a href="#Spring-Securit配制文件SecurityConfig" class="headerlink" title="Spring Securit配制文件SecurityConfig"></a>Spring Securit配制文件SecurityConfig</h2><ul>
+<li><p>处理访问无权限是返回结果  </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestfulAccessDeniedHandler</span> <span class="keyword">implements</span> <span class="title">AccessDeniedHandler</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">                     HttpServletResponse response,</span></span></span><br><span class="line"><span class="function"><span class="params">                     AccessDeniedException e)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">      response.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">      response.setContentType(<span class="string">&quot;application/json&quot;</span>);</span><br><span class="line">      <span class="comment">//Jackson核心对象</span></span><br><span class="line">      ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">      response.getWriter().println(mapper.writeValueAsString(Result.forbidden(<span class="string">&quot;所请求资源，没有权限访问！&quot;</span>)));</span><br><span class="line">      response.getWriter().flush();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>处理Token失效或未登录是返回结果  </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestAuthenticationEntryPoint</span> <span class="keyword">implements</span> <span class="title">AuthenticationEntryPoint</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">commence</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">      response.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">      response.setContentType(<span class="string">&quot;application/json&quot;</span>);</span><br><span class="line">      <span class="comment">//Jackson核心对象</span></span><br><span class="line">      ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">      response.getWriter().println(mapper.writeValueAsString(Result.unauthorized(<span class="string">&quot;未登录或者token失效！&quot;</span>)));</span><br><span class="line">      response.getWriter().flush();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>配制文件主要内容<br>  SecurityConfig接管Spring Security的配置，必须要继承WebSecurityConfigurerAdapter重写configure方法。并且通常添加@EnableWebSecurity注解开启方法过滤注解</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity httpSecurity)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">      httpSecurity</span><br><span class="line">              .csrf().disable() <span class="comment">//关闭CSRF</span></span><br><span class="line">              .sessionManagement()<span class="comment">// 基于token，所以不需要session</span></span><br><span class="line">              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)</span><br><span class="line">              .and()</span><br><span class="line">              .authorizeRequests()</span><br><span class="line">              <span class="comment">// 允许对于网站静态资源的无授权访问</span></span><br><span class="line">              .antMatchers(HttpMethod.GET,</span><br><span class="line">                      <span class="string">&quot;/&quot;</span>,</span><br><span class="line">                      <span class="string">&quot;/*.html&quot;</span>,</span><br><span class="line">                      <span class="string">&quot;/favicon.ico&quot;</span>,</span><br><span class="line">                      <span class="string">&quot;/**/*.html&quot;</span>,</span><br><span class="line">                      <span class="string">&quot;/**/*.css&quot;</span>,</span><br><span class="line">                      <span class="string">&quot;/**/*.js&quot;</span>,</span><br><span class="line">                      <span class="string">&quot;/swagger-resources/**&quot;</span>,</span><br><span class="line">                      <span class="string">&quot;/v2/api-docs/**&quot;</span></span><br><span class="line">              )</span><br><span class="line">              .permitAll()</span><br><span class="line">              <span class="comment">// 对登录注册要允许匿名访问</span></span><br><span class="line">              .antMatchers(<span class="string">&quot;/system/user/login&quot;</span>, <span class="string">&quot;/system/user/register&quot;</span>)</span><br><span class="line">              .permitAll()</span><br><span class="line">              <span class="comment">//跨域请求会先进行一次options请求</span></span><br><span class="line">              .antMatchers(HttpMethod.OPTIONS)</span><br><span class="line">              .permitAll()</span><br><span class="line">              <span class="comment">//允许访问druid监控页面，由于CSRF跨站点请求伪造(Cross—Site Request Forgery)的原因，会进不去druid监控页面</span></span><br><span class="line">              .antMatchers(<span class="string">&quot;/druid/*&quot;</span>)</span><br><span class="line">              .permitAll()</span><br><span class="line">              .anyRequest()<span class="comment">// 除上面外的所有请求全部需要鉴权认证</span></span><br><span class="line">              .authenticated();</span><br><span class="line">      <span class="comment">// 禁用缓存</span></span><br><span class="line">      httpSecurity.headers().cacheControl();</span><br><span class="line">      <span class="comment">// 添加JWT filter</span></span><br><span class="line">      httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);</span><br><span class="line">      <span class="comment">// 添加自定义未授权和未登录结果返回</span></span><br><span class="line">      httpSecurity.exceptionHandling()</span><br><span class="line">              .accessDeniedHandler(restfulAccessDeniedHandler)</span><br><span class="line">              .authenticationEntryPoint(restAuthenticationEntryPoint);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>authenticationManager无法注入问题<br>在项目起动过程时，报错AuthenticationManager无法注入问题。报错信息如下：</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">Description:</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>Field userService in com.zhjAdm.system.user.service.impl.UserDetailsServiceImpl required a bean of type ‘org.springframework.security.authentication.AuthenticationManager’ that could not be found.</p>
+<p>The injection point has the following annotations:<br>    - @org.springframework.beans.factory.annotation.Autowired(required=true)</p>
+<p>Action:</p>
+<p>Consider defining a bean of type ‘org.springframework.security.authentication.AuthenticationManager’ in your configuration.</p>
+<figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line">解决方案，在配制文件中添加：</span><br><span class="line">```java</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">AuthenticationManager <span class="title">authenticationManagerBean</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> <span class="keyword">super</span>.<span class="title">authenticationManagerBean</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring Security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初识Spring Security（二)</title>
+    <url>/archives/48147.html</url>
+    <content><![CDATA[<p>对于用户密码出于安全考虑需要加密存储，Spring Security提供了多种加密方式，官方推荐使用BCryptPasswordEncoder加密方式。其实BCryptPasswordEncoder的实现并非为一种加密算法，而是采用SHA-256 +随机盐+密钥对密码进行加密，SHA系列是Hash算法，其过程是不可逆的。用户注册时，使用SHA-256 +随机盐+密钥把用户输入的密码进行Hash处理，将得到的Hash值存入数据库。用户登陆时候采取同样的算法对密码进行Hash处理后于数据库中存储得密码Hash值进行比较。</p>
+<h2 id="SecurityUtils工具类"><a href="#SecurityUtils工具类" class="headerlink" title="SecurityUtils工具类"></a>SecurityUtils工具类</h2><p>Spring框架借助ThreadLocal来保存和传递用户登录信息。我们编写一个工具类方便的获取ThreadLocal中的用户信息名，以及用户密码的加密和比较工作</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityUtils</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户ID</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getUserId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> getLoginUser().getUserId();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(ResultEnum.USER_NOT_EXIST);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取部门ID</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getOrganId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> getLoginUser().getOrganId();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(ResultEnum.USER_NOT_ORGAN);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取用户账户</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> getLoginUser().getUsername();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(ResultEnum.USER_NOT_ACCOUNT);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取用户</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SysUser <span class="title">getLoginUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (SysUser) getAuthentication().getPrincipal();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(ResultEnum.USER_NOT_EXIST);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取Authentication</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Authentication <span class="title">getAuthentication</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SecurityContextHolder.getContext().getAuthentication();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成BCryptPasswordEncoder密码</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> password 密码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 加密字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">encryptPassword</span><span class="params">(String password)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&#123;bcrypt&#125;&quot;</span> + <span class="keyword">new</span> BCryptPasswordEncoder().encode(password);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断密码是否相同</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> rawPassword     真实密码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> encodedPassword 加密后字符</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">matchesPassword</span><span class="params">(String rawPassword, String encodedPassword)</span> </span>&#123;</span><br><span class="line">        BCryptPasswordEncoder passwordEncoder = <span class="keyword">new</span> BCryptPasswordEncoder();</span><br><span class="line">        <span class="keyword">return</span> passwordEncoder.matches(rawPassword, encodedPassword);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 是否为超级管理员</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userId 用户ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isAdmin</span><span class="params">(Long userId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userId != <span class="keyword">null</span> &amp;&amp; <span class="number">1L</span> == userId;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="用户注册"><a href="#用户注册" class="headerlink" title="用户注册"></a>用户注册</h2><p>用户注册对用户填写的密码使用**SecurityUtils.encryptPassword()**进行加密处理即可</p>
+<h2 id="用户登陆流程"><a href="#用户登陆流程" class="headerlink" title="用户登陆流程"></a>用户登陆流程</h2><p>1、登陆后台处理调用**authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password))<strong>，该方法会去调用</strong>UserDetailsServiceImpl.loadUserByUsername()**。  </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> LoginUser <span class="title">authLogin</span><span class="params">(UserLoginVo userLoginVo)</span> </span>&#123;</span><br><span class="line">    String username = userLoginVo.getUsername();</span><br><span class="line">    String password = userLoginVo.getPassword();</span><br><span class="line">    <span class="comment">// 用户验证</span></span><br><span class="line">    Authentication authentication = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 该方法会去调用UserDetailsServiceImpl.loadUserByUsername</span></span><br><span class="line">        authentication = authenticationManager</span><br><span class="line">                .authenticate(<span class="keyword">new</span> UsernamePasswordAuthenticationToken(username, password));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">500</span>,e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">    LoginUser loginUser = (LoginUser) authentication.getPrincipal();</span><br><span class="line">    <span class="comment">// recordLoginInfo(loginUser.getUserId());</span></span><br><span class="line">    <span class="comment">// 生成 token</span></span><br><span class="line">    String token = JwtTokenUtil.getRefreshToken(username, <span class="keyword">null</span>);</span><br><span class="line">    <span class="comment">// 用户信息</span></span><br><span class="line">    loginUser.setToken(tokenHead + token);</span><br><span class="line">    <span class="keyword">return</span> loginUser;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、自定义验证类UserDetailsService 实现Security框架UserDetailsService的接口。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDetailsServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> SysUserService userService;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* @Autowired</span></span><br><span class="line"><span class="comment">private SysPermissionService permissionService;*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</span><br><span class="line">    SysUser user = userService.getUserByUsername(username);</span><br><span class="line">    <span class="keyword">if</span> (user == <span class="keyword">null</span>) &#123;</span><br><span class="line">        log.info(<span class="string">&quot;登录用户：&#123;&#125; 不存在.&quot;</span>, username);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="string">&quot;登录用户：&quot;</span> + username + <span class="string">&quot; 不存在&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (UserStatus.DELETED.getCode() == user.getDelFlag()) &#123;</span><br><span class="line">        log.info(<span class="string">&quot;登录用户：&#123;&#125; 已被删除.&quot;</span>, username);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="string">&quot;对不起，您的账号：&quot;</span> + username + <span class="string">&quot; 已被删除&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (UserStatus.DISABLE.getCode() == user.getUserState()) &#123;</span><br><span class="line">        log.info(<span class="string">&quot;登录用户：&#123;&#125; 已被停用.&quot;</span>, username);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="string">&quot;对不起，您的账号：&quot;</span> + username + <span class="string">&quot; 已停用&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> createLoginUser(user);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> UserDetails <span class="title">createLoginUser</span><span class="params">(SysUser user)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> LoginUser(user.getUserId(), user.getOrganId(), user);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、我们自定义验证类UserDetailsService实现类中，需要实现的<strong>loadUserByUsername</strong>方法回返回一个<strong>UserDetails</strong>接口类，包含非安全相关的信息（如用户昵称，电话号码等），们只存储用户信息，这些信息随后被封装到Authentication对象中。所以我们可以创建其实现类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginUser</span> <span class="keyword">implements</span> <span class="title">UserDetails</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户ID</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String userId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 部门ID</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String deptId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户唯一标识</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String token;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 登录时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String loginTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 过期时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String expireTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 登录IP地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String ipaddr;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 登录地点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String loginLocation;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 浏览器类型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String browser;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 操作系统</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String os;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 权限列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Set&lt;String&gt; permissions;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoginUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoginUser</span><span class="params">(SysUser user, Set&lt;String&gt; permissions)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.user = user;</span><br><span class="line">        <span class="keyword">this</span>.permissions = permissions;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoginUser</span><span class="params">(String userId, Long String, SysUser user, Set&lt;String&gt; permissions)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userId = userId;</span><br><span class="line">        <span class="keyword">this</span>.deptId = deptId;</span><br><span class="line">        <span class="keyword">this</span>.user = user;</span><br><span class="line">        <span class="keyword">this</span>.permissions = permissions;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoginUser</span><span class="params">(String userId, String deptId, SysUser user)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userId = userId;</span><br><span class="line">        <span class="keyword">this</span>.deptId = deptId;</span><br><span class="line">        <span class="keyword">this</span>.user = user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> SysUser user;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDeptId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> deptId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDeptId</span><span class="params">(String deptId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.deptId = deptId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getToken</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> token;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setToken</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.token = token;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Collection&lt;? extends GrantedAuthority&gt; getAuthorities() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@JsonIgnore</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> user.getPassword();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> user.getUsername();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户是否过期，没有过期就返回true</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@JsonIgnore</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAccountNonExpired</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户是否被锁定，锁定返回true。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@JsonIgnore</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAccountNonLocked</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户凭证是否可用，可用返回true</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@JsonIgnore</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isCredentialsNonExpired</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户是否启用了，启用了返回true</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@JsonIgnore</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEnabled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h2><ul>
+<li>There is no PasswordEncoder mapped for the id “null“ 问题的解决方法  <ul>
+<li><p>错误<br>  登陆报错<strong>There is no PasswordEncoder mapped for the id “null“</strong></p>
+</li>
+<li><p>原因<br>  Spring Security5.x 对所配置的密码必须带上加密方式，如果没有带，就会解析不出来，所以抛错。</p>
+</li>
+<li><p>解决<br>  储存密码是添加加密方式， 格式为{xxx}密码。  </p>
+<table>
+<thead>
+<tr>
+<th>加密方式</th>
+<th>原来security 4的密码格式</th>
+<th>现在security 5的密码格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bcrypt</td>
+<td>password</td>
+<td>{bcrypt}password</td>
+</tr>
+<tr>
+<td>ldap</td>
+<td>password</td>
+<td>{ldap}password</td>
+</tr>
+<tr>
+<td>MD4</td>
+<td>password</td>
+<td>{MD4}password</td>
+</tr>
+<tr>
+<td>MD5</td>
+<td>password</td>
+<td>{MD5}password</td>
+</tr>
+<tr>
+<td>noop</td>
+<td>password</td>
+<td>{noop}password</td>
+</tr>
+<tr>
+<td>pbkdf2</td>
+<td>password</td>
+<td>{pbkdf2}password</td>
+</tr>
+<tr>
+<td>scrypt</td>
+<td>password</td>
+<td>{scrypt}password</td>
+</tr>
+<tr>
+<td>SHA-1</td>
+<td>password</td>
+<td>{SHA-1}password</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td>password</td>
+<td>{SHA-256}password</td>
+</tr>
+<tr>
+<td>sha256</td>
+<td>password</td>
+<td>{sha256}password</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring Security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图片旋转</title>
+    <url>/archives/58969.html</url>
+    <content><![CDATA[<h2 id="图片加载判断"><a href="#图片加载判断" class="headerlink" title="图片加载判断"></a>图片加载判断</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">addImg = <span class="function"><span class="keyword">function</span> (<span class="params">url</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">        img.src = url;</span><br><span class="line">        <span class="keyword">let</span> imgDivDom = $(<span class="string">&quot;#imgDiv&quot;</span>);</span><br><span class="line">        <span class="keyword">let</span> height = imgDivDom.outerHeight(<span class="literal">true</span>)</span><br><span class="line">        <span class="keyword">let</span> width = imgDivDom.outerWidth(<span class="literal">true</span>)</span><br><span class="line">        <span class="comment">// 如果图片被缓存，则直接返回缓存数据</span></span><br><span class="line">        <span class="keyword">if</span> (img.complete) &#123;</span><br><span class="line">            imgDivDom.html(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            imgDivDom.append(img)</span><br><span class="line">            <span class="keyword">if</span> (img.width &gt; img.height) &#123;</span><br><span class="line">                imgDivDom.children(<span class="string">&#x27;img&#x27;</span>).css(&#123;</span><br><span class="line">                    <span class="string">&quot;margin&quot;</span>: <span class="string">&quot;0 auto&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;height&quot;</span>: height + <span class="string">&quot;px&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;width&quot;</span>: width + <span class="string">&quot;px&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;object-fit&quot;</span>: <span class="string">&quot;contain&quot;</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                imgDivDom.children(<span class="string">&#x27;img&#x27;</span>).css(&#123;</span><br><span class="line">                    <span class="string">&quot;display&quot;</span>: <span class="string">&quot;block&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;margin&quot;</span>: <span class="string">&quot;0 auto&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;height&quot;</span>: width + <span class="string">&quot;px&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;width&quot;</span>: height + <span class="string">&quot;px&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;object-fit&quot;</span>: <span class="string">&quot;contain&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;transform&quot;</span>: <span class="string">&quot;rotate(90deg)&quot;</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 完全加载完毕的事件</span></span><br><span class="line">            img.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                imgDivDom.html(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">                imgDivDom.append(img)</span><br><span class="line">                <span class="keyword">if</span> (img.width &gt; img.height) &#123;</span><br><span class="line">                    imgDivDom.children(<span class="string">&#x27;img&#x27;</span>).css(&#123;</span><br><span class="line">                        <span class="string">&quot;margin&quot;</span>: <span class="string">&quot;0 auto&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;height&quot;</span>: height + <span class="string">&quot;px&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;width&quot;</span>: width + <span class="string">&quot;px&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;object-fit&quot;</span>: <span class="string">&quot;contain&quot;</span></span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    imgDivDom.children(<span class="string">&#x27;img&#x27;</span>).css(&#123;</span><br><span class="line">                        <span class="string">&quot;display&quot;</span>: <span class="string">&quot;block&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;margin&quot;</span>: <span class="string">&quot;0 auto&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;height&quot;</span>: width + <span class="string">&quot;px&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;width&quot;</span>: height + <span class="string">&quot;px&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;object-fit&quot;</span>: <span class="string">&quot;contain&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;transform&quot;</span>: <span class="string">&quot;rotate(90deg)&quot;</span></span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        img.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">            imgDivDom.html(<span class="string">&#x27;&lt;div class=&quot;noImg&quot;&gt;暂无图片&lt;/div&gt;&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>父级元素样式</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">display</span>: flex;</span><br><span class="line"><span class="attribute">align-items</span>: center;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+        <tag>滚动条</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>滚动条探索之美化</title>
+    <url>/archives/8599.html</url>
+    <content><![CDATA[<h1 id="webkit下css实现样式修改"><a href="#webkit下css实现样式修改" class="headerlink" title="webkit下css实现样式修改"></a>webkit下css实现样式修改</h1><p>基于webkit内核的浏览器可通过-webkit-scrollbar<em><strong>伪元素</strong></em>实现对滚动条样式的控制。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">::-webkit-scrollbar — 整个滚动条.</span><br><span class="line">::-webkit-scrollbar-button — 滚动条上的按钮 (上下箭头).</span><br><span class="line">::-webkit-scrollbar-thumb — 滚动条上的滚动滑块.</span><br><span class="line">::-webkit-scrollbar-track — 滚动条轨道.</span><br><span class="line">::-webkit-scrollbar-track-piece — 滚动条没有滑块的轨道部分.</span><br><span class="line">::-webkit-scrollbar-corner — 当同时有垂直滚动条和水平滚动条时交汇的部分.</span><br><span class="line">::-webkit-resizer — 两个滚动条的交汇处上用于通过拖动调整元素大小的小控件</span><br></pre></td></tr></table></figure>
+
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">::-webkit-scrollbar&#123;/*滚动条整体*/</span><br><span class="line">    width: <span class="number">45px</span>;</span><br><span class="line">&#125;</span><br><span class="line">::-webkit-scrollbar-thumb&#123;/*滚动条里面的小方块*/</span><br><span class="line">    background: <span class="number">#666666</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">45px</span>;</span><br><span class="line">&#125;</span><br><span class="line">::-webkit-scrollbar-track&#123;/*滚动条轨道的样式*/</span><br><span class="line">    background: <span class="number">#ccc</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line">::-webkit-scrollbar-track-piece&#123;/*滚动条没有滑块的轨道样式*/</span><br><span class="line">    background: <span class="built_in">rgb</span>(<span class="number">1</span>, <span class="number">117</span>, <span class="number">133</span>);</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">45px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/zhjAdm/ImageHosting/main/1-1.png" alt="1-1"><br>::-webkit-scrollbar 为一切的基础，并且所有的伪元素后面可通过添加:vertical和:horizontal两个<em><strong>伪类</strong></em>来是定所调整的为纵向还是横向滚动条。</p>
+<h1 id="IE下css实现样式修改"><a href="#IE下css实现样式修改" class="headerlink" title="IE下css实现样式修改"></a>IE下css实现样式修改</h1><p>IE浏览器仅支持修改颜色，无法对滚动条的形状大小进行修改。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">scrollbar-arrow-<span class="attribute">color</span>: color; <span class="comment">/*三角箭头的颜色*/</span></span><br><span class="line">scrollbar-face-<span class="attribute">color</span>: color; <span class="comment">/*立体滚动条的颜色（包括箭头部分的背景色）*/</span></span><br><span class="line">scrollbar-<span class="number">3</span>dlight-<span class="attribute">color</span>: color; <span class="comment">/*立体滚动条亮边的颜色*/</span></span><br><span class="line">scrollbar-highlight-<span class="attribute">color</span>: color; <span class="comment">/*滚动条的高亮颜色（左阴影？）*/</span></span><br><span class="line">scrollbar-shadow-<span class="attribute">color</span>: color; <span class="comment">/*立体滚动条阴影的颜色*/</span></span><br><span class="line">scrollbar-darkshadow-<span class="attribute">color</span>: color; <span class="comment">/*立体滚动条外阴影的颜色*/</span></span><br><span class="line">scrollbar-track-<span class="attribute">color</span>: color; <span class="comment">/*立体滚动条背景颜色*/</span></span><br><span class="line">scrollbar-base-<span class="attribute">color</span>:color; <span class="comment">/*滚动条的基色*/</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="NiceScroll插件实现滚动条美化"><a href="#NiceScroll插件实现滚动条美化" class="headerlink" title="NiceScroll插件实现滚动条美化"></a>NiceScroll插件实现滚动条美化</h1><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>基于jQuery实现的滚动条插件，无需额外的css启用只需一行代码，灵活方便可完全自定义滚动条的样式。几乎兼容全部的浏览器，同时支持触摸事件。</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>引入<strong>jQuery</strong>和<strong>nicescroll</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;boxscroll&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;contentscroll&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>只需下面简单一行代码便可实现滚动条的开启,<strong>nicescroll</strong>不依赖原本浏览器样式。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="string">&quot;.boxscroll&quot;</span>).niceScroll();</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：<br><img src="https://raw.githubusercontent.com/zhjAdm/ImageHosting/main/2021-05-18_20-05-41.png"></p>
+<p>修改样式也同样的方便，niceScroll()传入想修改的参数即可。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="string">&quot;.boxscroll&quot;</span>).niceScroll(&#123;<span class="attr">cursorcolor</span>:<span class="string">&quot;#F00&quot;</span>,<span class="attr">cursoropacitymax</span>:<span class="number">0.7</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/zhjAdm/ImageHosting/main/2021-05-18_21-00-41.png"></p>
+<h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cursorcolor: <span class="string">&quot;#424242&quot;</span>, <span class="comment">// 滚动条光标的颜色 change cursor color in hex</span></span><br><span class="line">cursoropacitymin: <span class="number">0</span>, <span class="comment">// 滚动条在不激活状态下的透明度，默认是0 change opacity when cursor is inactive (scrollabar &quot;hidden&quot; state), range from 1 to 0</span></span><br><span class="line">cursoropacitymax: <span class="number">1</span>, <span class="comment">//滚动条在激活状态下的透明度，默认是1 change opacity when cursor is active (scrollabar &quot;visible&quot; state), range from 1 to 0</span></span><br><span class="line">cursorwidth: <span class="string">&quot;5px&quot;</span>, <span class="comment">// 滚动条宽度 cursor width in pixel (you can also write &quot;5px&quot;)</span></span><br><span class="line">cursorborder: <span class="string">&quot;1px solid #fff&quot;</span>, <span class="comment">//用css定义滚动条的边框 css definition for cursor border</span></span><br><span class="line">cursorborderradius: <span class="string">&quot;5px&quot;</span>, <span class="comment">//滚动条的圆角半径 border radius in pixel for cursor</span></span><br><span class="line">zindex: <span class="string">&quot;auto&quot;</span> | &lt;number&gt;, <span class="comment">//改变滚动条div的z-index的值 change z-index for scrollbar div</span></span><br><span class="line">scrollspeed: <span class="number">60</span>, <span class="comment">// 滚动速度</span></span><br><span class="line">mousescrollstep: <span class="number">40</span>, <span class="comment">//使用鼠标轮滚的时候的滚动速度 scrolling speed with mouse wheel (pixel)</span></span><br><span class="line">touchbehavior: <span class="literal">false</span>, <span class="comment">//在桌面电脑上启用光标拖动，就像触摸设备那样 enable cursor-drag scrolling like touch devices in desktop computer</span></span><br><span class="line">hwacceleration: <span class="literal">true</span>, <span class="comment">//如果设备支持，则启用硬件加速 use hardware accelerated scroll when supported</span></span><br><span class="line">boxzoom: <span class="literal">false</span>, <span class="comment">//给盒子的内容启用放大缩小功能 enable zoom for box content</span></span><br><span class="line">dblclickzoom: <span class="literal">true</span>, <span class="comment">//双击放大，在boxzoom=true的情况下 (only when boxzoom=true) zoom activated when double click on box</span></span><br><span class="line">gesturezoom: <span class="literal">true</span>, <span class="comment">//手势放大缩小，在boxzoom=true的情况下 (only when boxzoom=true and with touch devices) zoom activated when pinch out/in on box</span></span><br><span class="line">grabcursorenabled: <span class="literal">true</span> <span class="comment">//这个可以禁用&quot;grab&quot;鼠标光标 (only when touchbehavior=true) display &quot;grab&quot; icon</span></span><br><span class="line">autohidemode: <span class="literal">true</span>, <span class="comment">//设置在什么情况下隐藏scrollbar。 how hide the scrollbar works, possible values: </span></span><br><span class="line">  <span class="literal">true</span> | <span class="comment">// 在不滚动情况下隐藏。 hide when no scrolling</span></span><br><span class="line">  <span class="string">&quot;cursor&quot;</span> | <span class="comment">//只隐藏光标 only cursor hidden</span></span><br><span class="line">  <span class="literal">false</span> | <span class="comment">//始终不隐藏 do not hide,</span></span><br><span class="line">  <span class="string">&quot;leave&quot;</span> | <span class="comment">//只在鼠标离开内容区是隐藏 hide only if pointer leaves content</span></span><br><span class="line">  <span class="string">&quot;hidden&quot;</span> | <span class="comment">//使用隐藏 hide always</span></span><br><span class="line">  <span class="string">&quot;scroll&quot;</span>, <span class="comment">//只在滚动的情况下显示，在不滚动的时候隐藏 show only on scroll          </span></span><br><span class="line">background: <span class="string">&quot;&quot;</span>, <span class="comment">//设置背景颜色 change css for rail background</span></span><br><span class="line">iframeautoresize: <span class="literal">true</span>, <span class="comment">//在iframe的load事件中自动设置大小 autoresize iframe on load event</span></span><br><span class="line">cursorminheight: <span class="number">32</span>, <span class="comment">//设置最小的光标高度 set the minimum cursor height (pixel)</span></span><br><span class="line">preservenativescrolling: <span class="literal">true</span>, <span class="comment">//这个设置通过事件冒泡的方式使你能够滚动原生的滚动条。 you can scroll native scrollable areas with mouse, bubbling mouse wheel event</span></span><br><span class="line">railoffset: <span class="literal">false</span>, <span class="comment">//设置轨道的上或者左的偏移 you can add offset top/left for rail position</span></span><br><span class="line">bouncescroll: <span class="literal">false</span>, <span class="comment">//启用向手机上面的那种滚动回弹 (only hw accell) enable scroll bouncing at the end of content as mobile-like </span></span><br><span class="line">spacebarenabled: <span class="literal">true</span>, <span class="comment">// enable page down scrolling when space bar has pressed</span></span><br><span class="line">railpadding: &#123; <span class="attr">top</span>: <span class="number">0</span>, <span class="attr">right</span>: <span class="number">0</span>, <span class="attr">left</span>: <span class="number">0</span>, <span class="attr">bottom</span>: <span class="number">0</span> &#125;, <span class="comment">//设置轨道的内间距 set padding for rail bar</span></span><br><span class="line">disableoutline: <span class="literal">true</span>, <span class="comment">//在chrome浏览器上选择一个div使用nicescroll时禁用outline， for chrome browser, disable outline (orange highlight) when selecting a div with nicescroll</span></span><br><span class="line">horizrailenabled: <span class="literal">true</span>, <span class="comment">//设置是否处理水平滚动 nicescroll can manage horizontal scroll</span></span><br><span class="line">railalign: right, <span class="comment">//垂直对齐方式 alignment of vertical rail</span></span><br><span class="line">railvalign: bottom, <span class="comment">//水平对齐方式 alignment of horizontal rail</span></span><br><span class="line">enabletranslate3d: <span class="literal">true</span>, <span class="comment">//设置nicescroll是否使用css translate去滚动内容 nicescroll can use css translate to scroll content</span></span><br><span class="line">enablemousewheel: <span class="literal">true</span>, <span class="comment">//设置是否响应鼠标滚动事件 nicescroll can manage mouse wheel events</span></span><br><span class="line">enablekeyboard: <span class="literal">true</span>, <span class="comment">//设置是否响应键盘事件 nicescroll can manage keyboard events</span></span><br><span class="line">smoothscroll: <span class="literal">true</span>, <span class="comment">//使用平滑滚动 scroll with ease movement</span></span><br><span class="line">sensitiverail: <span class="literal">true</span>, <span class="comment">//在轨道上点击时是否滚动 click on rail make a scroll</span></span><br><span class="line">enablemouselockapi: <span class="literal">true</span>, <span class="comment">// can use mouse caption lock API (same issue on object dragging)</span></span><br><span class="line">cursorfixedheight: <span class="literal">false</span>, <span class="comment">//给光标设置固定的高度 set fixed height for cursor in pixel</span></span><br><span class="line">hidecursordelay: <span class="number">400</span>, <span class="comment">//设置隐藏光标的延迟时间，单位是毫秒 set the delay in microseconds to fading out scrollbars</span></span><br><span class="line">directionlockdeadzone: <span class="number">6</span>, <span class="comment">// dead zone in pixels for direction lock activation</span></span><br><span class="line">nativeparentscrolling: <span class="literal">true</span>, <span class="comment">//检测内容的底部和父节点是否允许滚动，像原生滚动条的实现方式 detect bottom of content and let parent to scroll, as native scroll does</span></span><br><span class="line">enablescrollonselection: <span class="literal">true</span>, <span class="comment">//在选择文字的时候自动滚动内容 enable auto-scrolling of content when selection text</span></span><br><span class="line">cursordragspeed: <span class="number">0.3</span>, <span class="comment">//当拖动光标时候的速度 speed of selection when dragged with cursor</span></span><br><span class="line">rtlmode: <span class="string">&quot;auto&quot;</span>, <span class="comment">//设置水平滚动div的起始边是左还是右 horizontal div scrolling starts at left side</span></span><br><span class="line">cursordragontouch: <span class="literal">false</span>, <span class="comment">//设置在触摸模式下，是否可以拖动光标就可以滚动 drag cursor in touch / touchbehavior mode also</span></span><br><span class="line">oneaxismousemode: <span class="string">&quot;auto&quot;</span>, <span class="comment">//设置鼠标滚轮在只有水平模式的情况下是否可用 it permits horizontal scrolling with mousewheel on horizontal only content, if false (vertical-only) mousewheel don&#x27;t scroll horizontally, if value is auto detects two-axis mouse</span></span><br><span class="line">scriptpath: <span class="string">&quot;&quot;</span> <span class="comment">//设置box模式下图标的路径，设成&quot;&quot;表示和script是同一个路径 define custom path for boxmode icons (&quot;&quot; =&gt; same script path)</span></span><br><span class="line">preventmultitouchscrolling: <span class="literal">true</span> <span class="comment">//防止在多点触摸情况下滚动 prevent scrolling on multitouch events</span></span><br><span class="line">disablemutationobserver: <span class="literal">false</span> <span class="comment">//稳定滚动条 force MutationObserver disabled</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+        <tag>滚动条</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面试记录一</title>
+    <url>/archives/51622.html</url>
+    <content><![CDATA[<h3 id="文会科技-20240407"><a href="#文会科技-20240407" class="headerlink" title="文会科技-20240407"></a>文会科技-20240407</h3><ol>
+<li><p>接口幂等性</p>
+<blockquote>
+<h5 id="为什么会有接口幂等性的问题"><a href="#为什么会有接口幂等性的问题" class="headerlink" title="为什么会有接口幂等性的问题"></a>为什么会有接口幂等性的问题</h5><p>用户提交过程中出项网络波动，用户重复点击提交按钮，对第三方提供的接口超时往往会添加重试机制，使用MQ出现重复消费的问题</p>
+<h5 id="如何解决"><a href="#如何解决" class="headerlink" title="如何解决"></a>如何解决</h5><ol>
+<li>用户点击提交后可以禁用提交按钮，实现起来简单但是前端控制往往不可靠</li>
+<li>token机制，进入表单页获取提个token并存入redis中，提交后先尝试在redis中删除这个token，来判断是否重复提交</li>
+<li>利用数据库的唯一索引实现，去重表</li>
+<li>乐观锁，在数据库中有个版本号的字段，每次更新的时候对比版本号，如果不同则是被更新过</li>
+</ol>
+</blockquote>
+</li>
+<li><p>防止接口重复提交</p>
+<blockquote>
+<h5 id="利用Redis和aop去实现"><a href="#利用Redis和aop去实现" class="headerlink" title="利用Redis和aop去实现"></a>利用Redis和aop去实现</h5><p>定义注解实现接口拦截，根据前端传递参数加用户ID生产唯一哈希值key  利用Redis的 setIfAbsent 实现，通过设置过期时间来控制重复提交的时间</p>
+<h5 id="前端通过禁用按钮实现"><a href="#前端通过禁用按钮实现" class="headerlink" title="前端通过禁用按钮实现"></a>前端通过禁用按钮实现</h5><p>简单但不可靠</p>
+<h5 id="使用ConcurrentHashMap和aop去实现"><a href="#使用ConcurrentHashMap和aop去实现" class="headerlink" title="使用ConcurrentHashMap和aop去实现"></a>使用ConcurrentHashMap和aop去实现</h5><p>利用线程安全版的HashMap，根据前端传递参数加用户ID生产唯一哈希值key存到map中。并利用定时任务是删除map中的key。</p>
+<p>增加服务器性能消耗。</p>
+</blockquote>
+</li>
+<li><p>Linux下打开超大文件 </p>
+<blockquote>
+<ol>
+<li><p>查看文件的前多少行</p>
+<p>head -10000 /var/lib/mysql/slowquery.log &gt; temp.log</p>
+<p>上面命令的意思是：把slowquery.log文件前10000行的数据写入到temp.log文件中。</p>
+</li>
+<li><p>查看文件的后多少行</p>
+<p>tail -10000 /var/lib/mysql/slowquery.log &gt; temp.log</p>
+<p>上面命令的意思是：把slowquery.log文件后10000行的数据写入到temp.log文件中。</p>
+</li>
+<li><p>查看文件的几行到几行</p>
+<p>sed -n ‘10,10000p’ /var/lib/mysql/slowquery.log &gt; temp.log</p>
+<p>上面命令的意思是：把slowquery.log文件第10到10000行的数据写入到temp.log文件中。</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>aop 使用场景</p>
+<blockquote>
+<ol>
+<li>日志记录</li>
+<li>防止接口重复提交</li>
+<li>数据权限控制</li>
+<li>事务开启</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面试记录二</title>
+    <url>/archives/33156.html</url>
+    <content><![CDATA[<h3 id="20240410"><a href="#20240410" class="headerlink" title="20240410"></a>20240410</h3><ol>
+<li><p>如何理解Spring、Srping Boot 和 Spring Cloud</p>
+<blockquote>
+<ul>
+<li><p>Spring </p>
+<p>非入侵式：业务代码中不会出现 Spring 的API ；容器：提供容器，管理 bean 的生命周期以及对象之间的关系；</p>
+<p>IOC：控制反转，是一种编程思想将对象的创建控制权交给容器控制；AOP：面向切面编程，提供将公共逻辑代码抽离封装的能力，实现代码的解耦和重用</p>
+</li>
+<li><p>Spring Boot</p>
+<p>相对于 Spring 而言简化的繁杂的配置工作，提高开发的效率。其设计理念是约定大于配置，所以提供了大量的starter 共给开发人员使用。同时内嵌了像 Tomcat，Jetty 等 sevelt 容器，简化了部署工作</p>
+</li>
+<li><p>Spring Cloud</p>
+<p>是基于 Spring Boot 的一套微服务架构，依赖与很多套件实现服务间通讯，服务发现、配置管理等，本身自己不提供实际功能。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>sql 怎么优化</p>
+<blockquote>
+<ul>
+<li>添加索引，explain 命令可以查看 SQL 的执行计划，key：实际用到的索引和 rows：预计检查的行数。</li>
+<li>不要使用 select *</li>
+<li>用 union all 替代 union ：union会去重重排，排重的过程需要遍历、排序和比较，它更耗时，更消耗cpu资源</li>
+<li>使用小表驱动大表：in 适用于左边大表，右边小表。 exists 适用于左边小表，右边大表。</li>
+<li>尽量使用批量操作</li>
+<li>需要单条数据时使用 limit</li>
+<li>in 中的值不要太多</li>
+<li>分页查询 : 考虑使用自增ID或者时间 提高查询效率</li>
+<li>用连接查询代替子查询： 子查询会创建临时表，查询结束后再删除增加额外的消耗</li>
+<li>join 的表不易过多： left join 尽量左边要用小表，右边可以用大表。如果能用inner join的地方，尽量少用left join。</li>
+<li>控制索引的数量： 更新和删除操作都会更新索引，如果索引过多，会消耗很多额外的性能。能够建联合索引，就别建单个索引，可以删除无用的单个索引。</li>
+<li>使用where条件在分组前，就把多余的数据过滤掉</li>
+</ul>
+</blockquote>
+</li>
+<li><p>索引失效的原因</p>
+<blockquote>
+<ul>
+<li><p>数据类型不匹配：如果查询条件中的数据类型和索引列的数据类型不一致，会导致索引失效。因为 MySql 会进行隐式类型转换，这会使索引无法被有效使用。</p>
+</li>
+<li><p>违反最左前缀原则：在使用联合索引时，查询条件必须遵循最左前缀原则，即从左到右依次使用联合索引中的列，不能跳过任何一列，否则索引会失效。</p>
+</li>
+<li><p>where 语句 索引列上进行了函数操作或运算：如果在查询条件中对索引列进行了函数操作或运算，如使用LOWER()函数等，会导致索引失效。</p>
+</li>
+<li><p>使用LIKE进行模糊查询且查询条件以通配符开头：当使用LIKE进行模糊查询，并且查询条件以通配符（%）开头时，索引会失效。因为数据库无法确定索引列的起始位置，所以无法利用索引进行快速查找。</p>
+</li>
+<li><p>索引列包含 NULL 值：如果索引列中包含 NULL 值，在查询条件中使用 IS NULL 或 IS NOT NULL 也会导致索引失效。因为MySQL 在建立索引时不会存储空值，所以无法通过索引来判断是否为空。</p>
+</li>
+<li><p>查询条件中使用 OR 关键字：如果查询条件中使用了 OR 关键字，并且 OR 两边的条件涉及到不同的索引列，那么也会导致索引失效。因为 MySQL 无法同时使用多个索引来进行查询优化，所以只能选择全表扫描。</p>
+</li>
+<li><p>in使用不当：in 在结果集 大于30%的时候索引失效</p>
+</li>
+<li><p>select * : 会导致回表查询所以影响查询效率；同时增加查询分析器解析成本和无用字段增加网络 耗，尤其是 text 类型的字段</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>最左匹配原则</p>
+<blockquote>
+<p>联合索引(a,b,c)，会从左左侧开始匹配。假如没有a 则不会走索引，遇到范围查询会停止匹配。</p>
+</blockquote>
+</li>
+<li><p>事务失效的场景</p>
+<blockquote>
+<ul>
+<li>没有被 public 修饰：在Spring源码中，如果目标方法不是public，则TransactionAttribute返回null，不支持事务</li>
+<li>方法被 final 修饰：因为spring事务底层是用了aop，用了jdk的动态代理或者cglb的动态代理，会帮我们生成代理类，在代理类中实现事务功能</li>
+<li>同一个类中调用</li>
+<li>异常被捕获没有抛出</li>
+<li>多线程异步调用</li>
+<li>未指定回滚异常：解默认的回滚异常类型是运行时异常</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Countdownlatch和CyclicBarrier ，多线程</p>
+</li>
+<li><p>mybatis plus 分页实现原理，拦截器</p>
+</li>
+<li><p>delete 影响索引吗</p>
+<blockquote>
+<p>会，删除和更新会更新索引</p>
+</blockquote>
+</li>
+<li><p>redis 基本类型</p>
+<blockquote>
+<p>String、list、set、zset（有序集合）、hash、stream、Bit arrays（位集合）、HyperLogLog（是用来做基数统计的算法。用于估计一个set中元素数量的概率性的数据结构。）、Geospatial Indexes（地理空间索引）、Streams（流信息）</p>
+</blockquote>
+</li>
+<li><p>bean的生命周期</p>
+<blockquote>
+<ul>
+<li><p>实例化：根据配置文件中 Bean 的定义，利用 Java Reflection 反射技术创建 Bean 的实例</p>
+</li>
+<li><p>属性注入：注入对象依赖的属性值（或对象）</p>
+</li>
+<li><p>处理各种 Aware 接口：Spring 会检测该 Bean 是否实现了 xxxAware 接口，通过 Aware 类型的接口，可以让 Spring 框架为当前 Bean 注入相对应的内容</p>
+<p>​    如果 Bean 实现 BeanNameAware 接口，会调用实现的 setBeanName(string beanid)方法，注入bean 的名字；<br>​    如果 Bean 实现 BeanClassLoaderAware 接口，调用setBeanClassLoader()方法，注入 ClassLoader 对象的实例；<br>​    如果 Bean 实现 BeanFactoryAware 接口，会调用它实现的 setBeanFactory() 方法，注入的是 spring 工厂；<br>​    如果 Bean 实现 ApplicationContextAware 接口,会调用 setApplicationContext() 方法，注入 spring 上下文；</p>
+</li>
+<li><p>执行 BeanPostProcessor 前置处理：如果想对 Bean 进行一些自定义的前置处理，那么可以让Bean实现了BeanPostProcessor接口，将会在该阶段调用postprocessbeforeinitialization(Object obj,string s)方法</p>
+</li>
+<li><p>执行initializingBean初始化方法:如果Bean实现了initializingBean接口，执行afeterpropertiesset() 方法</p>
+<p>​    执行init-method自定义初始化方法：如果Bean在spring配置文件中配置了init-method属性，则会自动调用其配置的初    始化方法</p>
+</li>
+<li><p>执行了Beanpostprocessor后置处理：如果这个Bean实现了Beanpostprocessor接口，将会调用postprocessafterinitialization(object obj,string s)方法，由于这个方法是在Bean初始化结束后调用</p>
+</li>
+<li><p>执行DisposableBean销毁Bean：当Bean不再需要时，会经历清理阶段，如果Bean实现了DisposableBean这个接口，会调用其实现的destory()方法执行销毁</p>
+<p>​        执行destory-method自定义销毁方法：如果这个Bean的spring配置中配置了destory-method属性，会自动调用其配置  的自定义销毁方法。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>如何理解面向对象</p>
+<blockquote>
+<ul>
+<li><p>定义</p>
+<p>就是将要完成的一件“大事”，分割出其中的一个一个“独立对象”，每个对象都有其自身的“特征信息”，和“行为动作/功能”</p>
+</li>
+<li><p>对象组成</p>
+<p>方法和属性</p>
+</li>
+<li><p>特点</p>
+<p>封装：将数据和操作封装在对象内部，只对外提供公共的访问方式，这样提高了安全性和可维护性</p>
+<p>继承：继承允许一个类（子类）继承另一个类（父类）的属性和方法，这样可以复用父类的代码，提高开发效率</p>
+<p>多态：一个类实例的相同方法在不同情形下有不同的表现形式，实现方式重载和重写</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Java 反射机制</p>
+<blockquote>
+<ul>
+<li><p>理解</p>
+<p>在程序运行过程中，能够获取某一个类的属性和方法，并能够调用某一个对象的方法</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>redis使用场景</p>
+<blockquote>
+</blockquote>
+</li>
+<li><p>AOP具体使用</p>
+<blockquote>
+</blockquote>
+</li>
+<li><p>Lambda 表达式</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">(parameters) -&gt; expression</span><br><span class="line">或</span><br><span class="line">(parameters) -&gt;&#123; statements; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>parameters：表示参数，没有小括号也不可省略，expression 和 { statements; } 表示方法体。</p>
+<ul>
+<li><p>主要特性</p>
+<p>简洁、可并行、方法引用（允许使用 <code>::</code> 关键字来传递方法或者构造函数引用）、变量捕获（引用外部变量，该变量默然拥有 final 属性不可改变）、函数式编程支持（允许将函数当作参数传递给方法，或者将函数作为返回值</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+</search>
