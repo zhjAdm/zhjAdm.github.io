@@ -785,6 +785,15 @@
     "hexo-pagination" "1.0.0"
     "timsort" "^0.3.0"
 
+"hexo-generator-json-content@^4.2.3":
+  "integrity" "sha512-XGqCaTUr6+X8Ty/YvRi+0eh0DJgHcp+lgBhn+Sgyh6ev40P0cwamwJyaZroTdHt8GPoBwbSGVu0H/CdzEf0lFA=="
+  "resolved" "https://registry.npmmirror.com/hexo-generator-json-content/-/hexo-generator-json-content-4.2.3.tgz"
+  "version" "4.2.3"
+  dependencies:
+    "hexo-util" "latest"
+    "keyword-extractor" "latest"
+    "moment" "latest"
+
 "hexo-generator-searchdb@^1.3.3":
   "integrity" "sha512-kfnTHa1CkeVRujiXEN4BJYioC0Y1609FNamqZcE2gVQTkBkGJIuuEz7QFaXx/H+rPWODsWKZ0Gy6ETvPNQjfXg=="
   "resolved" "https://registry.npmjs.org/hexo-generator-searchdb/-/hexo-generator-searchdb-1.3.3.tgz"
@@ -888,7 +897,7 @@
   "resolved" "https://registry.npmjs.org/hexo-theme-landscape/-/hexo-theme-landscape-0.0.3.tgz"
   "version" "0.0.3"
 
-"hexo-util@^2.0.0", "hexo-util@^2.1.0", "hexo-util@^2.4.0":
+"hexo-util@^2.0.0", "hexo-util@^2.1.0", "hexo-util@^2.4.0", "hexo-util@latest":
   "integrity" "sha512-IPQvAyn0cznYMU2gskMiZ6LZEvN7wHNusrJoYxrir4f7S7POpZeDTBswiko9R1qqd+/hu07wUYZdm4ceTTCEaA=="
   "resolved" "https://registry.npmjs.org/hexo-util/-/hexo-util-2.4.0.tgz"
   "version" "2.4.0"
@@ -1111,6 +1120,11 @@
     "jsonparse" "^1.2.0"
     "through" ">=2.2.7 <3"
 
+"keyword-extractor@latest":
+  "integrity" "sha512-oi7dSPpYtW/3fE0vZiqQgZ8mW3F1V9K4+rBJ0FcVrdXBEQuhZ0zKj7sX74eqGASuepLHf9aYdeonyKHWhYpHQA=="
+  "resolved" "https://registry.npmmirror.com/keyword-extractor/-/keyword-extractor-0.0.28.tgz"
+  "version" "0.0.28"
+
 "lodash@^3.2.0":
   "integrity" "sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
@@ -1216,7 +1230,7 @@
   dependencies:
     "moment" ">= 2.9.0"
 
-"moment@^2.18.0", "moment@^2.22.2", "moment@>= 2.9.0":
+"moment@^2.18.0", "moment@^2.22.2", "moment@>= 2.9.0", "moment@latest":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   "version" "2.29.1"

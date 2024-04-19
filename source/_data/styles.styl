@@ -2,7 +2,40 @@
     box-shadow: none
     background: none
 }
+body {
+    background:url(/images/yourbackground.png);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    background-position:50% 50%;
+}
 
 .back-to-top.back-to-top-on {
     display: none;
+}
+//博客内容透明化
+//文章内容的透明度设置
+.content-wrap {
+  opacity: 0.9;
+}
+
+//侧边框的透明度设置
+.sidebar {
+  opacity: 0.9;
+}
+
+//菜单栏的透明度设置
+.header-inner {
+  background: rgba(255,255,255,0.9);
+}
+
+//搜索框（local-search）的透明度设置
+.popup {
+  opacity: 0.9;
+}
+.main-inner,.sidebar-inner{
+    opacity: 0.9;
+}
+.footer-inner{
+  color:#fff
 }
